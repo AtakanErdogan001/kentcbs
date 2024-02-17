@@ -13,4 +13,8 @@
 
 ## Features
 
--   TODO
+-   Generate random numbers
+
+## TR
+
+![](https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg)
