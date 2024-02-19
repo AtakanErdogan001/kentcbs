@@ -81,6 +81,8 @@ nav:
     - Report Issues: https://github.com/atakanerdogan001/kentcbs/issues
     - Examples:
         - examples/intro.ipynb
+        - examples/folium.ipynb
     - API Reference:
           - kentcbs module: kentcbs.md
           - common module: common.md
+
