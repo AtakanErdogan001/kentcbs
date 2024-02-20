@@ -3,7 +3,6 @@
 import random
 import string
 import ipyleaflet
-import leafmap
 
 class Map(ipyleaflet.Map):
     
