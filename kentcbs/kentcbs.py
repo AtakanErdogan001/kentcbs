@@ -3,7 +3,7 @@
 import random
 import string
 import ipyleaflet
-
+import leafmap
 
 class Map(ipyleaflet.Map):
     
@@ -17,7 +17,7 @@ class Map(ipyleaflet.Map):
 
 
     def add_search_control(self, position="topleft", **kwargs):
-        
+
         search_control = ipyleaflet.SearchControl(**kwargs)
         self.add_control(search_control)
 
