@@ -2,6 +2,27 @@
 
 import random
 import string
+import ipyleaflet
+
+
+class Map(ipyleaflet.Map):
+    
+    def __init__(self, center=[20,0], zoom=2, **kwargs) -> None:
+
+        if "scroll_wheel_zoom" not in kwargs:
+            kwargs["scroll_wheel_zoom"] = True
+
+        super().__init__(center=center, zoom=zoom,**kwargs)
+
+
+
+    def add_search_control(self, position="topleft", **kwargs):
+        
+        search_control = ipyleaflet.SearchControl(**kwargs)
+        self.add_control(search_control)
+
+
+
 
 def generate_random_string(length=10):
     """Generate a random string of a given length.
@@ -32,3 +53,4 @@ def lucky_number(length=3):
     number = random.randint(0, 10**length - 1)
     
     return number
+
