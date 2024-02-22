@@ -23,6 +23,23 @@ class Map(ipyleaflet.Map):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def generate_random_string(length=10):
     """Generate a random string of a given length.
 
@@ -52,4 +69,38 @@ def lucky_number(length=3):
     number = random.randint(0, 10**length - 1)
     
     return number
+
+
+
+
+
+
+
+
+
+def get_walks_starting_from(area, bridges=BRIDGES):
+    walks = []
+
+    def make_walks(area, walked=None, bridges_crossed=None):
+        walked = walked or area
+        bridges_crossed = bridges_crossed or ()
+        available_bridges = [
+            bridge 
+            for bridge in bridges 
+            if area in bridge and bridge not in bridges_crossed
+        ]
+
+        if not available_bridges:
+            walks.append(walked)
+            return
+        
+        for bridge in available_bridges:
+            crossing = bridge[1:] if bridge[0] == area else bridge[1: -1]
+            make_walks(
+                area=crossing[-1], 
+                walked=walked + crossing,
+                bridges_crossed=(bridge, *bridge_crossed),
+            )
+    make_walks(area)
+    return walks
 
