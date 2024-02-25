@@ -99,8 +99,11 @@ def get_walks_starting_from(area, bridges=BRIDGES):
             make_walks(
                 area=crossing[-1], 
                 walked=walked + crossing,
-                bridges_crossed=(bridge, *bridge_crossed),
+                bridges_crossed=(bridge, *bridges_crossed),
             )
     make_walks(area)
     return walks
+
+
+
 
