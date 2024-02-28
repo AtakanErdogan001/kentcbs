@@ -21,6 +21,67 @@ class Map(ipyleaflet.Map):
         self.add_control(search_control)
 
 
+import time
+import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+class Meteorology():
+def __init__(self, path, url):
+
+    self.path = path
+    self.url = url
+    self.browser = webdriver.Chrome(self.path)
+    self.browser.get(self.url)
+
+    def get_xy(self, sehirler):
+        result_xy_list = []
+        for il in sehirler:
+            sayi = 1
+            xpath = f"/html/body/div[3]/div/div/div/div/div/div[1]/select/option[text()='{il}']"
+            self.browser.find_element(By.XPATH, xpath).click()
+
+            # check
+            act_title = self.browser.title
+            exp_title = "İstasyon Bilgileri Veritabanı - Meteoroloji Genel Müdürlüğü" 
+            if act_title == exp_title:
+                print("Passed")
+            else:
+                print("Failed")
+            # wait for response
+            time.sleep(3)
+
+            # get link
+            loops = self.browser.find_elements(By.XPATH, '//*[@id="ayrinti"]/table/tbody/tr/td/a')
+
+            # split/rearrange x-y
+            for loop in loops:
+                # Find the district element associated with the station
+                ilce_element = self.browser.find_elements(By.XPATH, f'//*[@id="ayrinti"]/table/tbody/tr[{sayi}]/td[5]')
+                ilce_text_list = [ilce.text for ilce in ilce_element if ilce.text.strip()]
+                print(f"Ilce text list for {il}: {ilce_text_list}")
+
+                # Find the station number element associated with the station
+                station_no_element = self.browser.find_elements(By.XPATH, f'//*[@id="ayrinti"]/table/tbody/tr[{sayi}]/td[3]')
+                station_no_text = station_no_element[0].text if station_no_element else ""
+                print(f"Station number for {il}: {station_no_text}")
+
+                # Extract X and Y coordinates
+                loop_1 = loop.get_attribute('href')
+                result_1 = loop_1.split('=', 2)[2]
+                result_x, result_y = result_1.split(',', 1)
+
+                # Append data to the result list
+                result_xy_list.append([il, ", ".join(ilce_text_list), station_no_text, result_x, result_y])
+
+                # Increment sayi for the next iteration
+                sayi += 1
+
+        # export
+        print(result_xy_list)
+
+
+
 
 
 
