@@ -3,6 +3,8 @@
 import random
 import string
 import ipyleaflet
+import pandas as pd
+import selenium
 
 class Map(ipyleaflet.Map):
     
