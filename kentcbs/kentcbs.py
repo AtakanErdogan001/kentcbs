@@ -170,3 +170,19 @@ def get_walks_starting_from(area, bridges=BRIDGES):
 
 
 
+
+
+
+class parse():
+    def __init__(self, name, url, boundary)
+        self.name = name
+        self.url = url
+        self.boundary = boundary
+    
+    def get_data(self):
+
+
+        pass
+
+
+
